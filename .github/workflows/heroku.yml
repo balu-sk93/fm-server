@@ -1,0 +1,22 @@
+name: Deploy
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: akhileshns/heroku-deploy@v3.0.4 # This is the action
+        with:
+          heroku_api_key: e24ed837-0a7c-41f0-8666-60251f75e3ae
+          heroku_app_name: "FM-Server" #Must be unique in Heroku
+          heroku_email: "balu_sk93@hotmmail.com"
+          buildpack: "SOME BUILDPACK" #OPTIONAL
+          branch: "YOUR_BRANCH" #OPTIONAL and DEFAULT - 'HEAD' (a.k.a your current branch)
+          dontuseforce: false #OPTIONAL and DEFAULT - false
+          usedocker: false #OPTIONAL and DEFAULT - false
+          appdir: "" #OPTIONAL and DEFAULT - "".
