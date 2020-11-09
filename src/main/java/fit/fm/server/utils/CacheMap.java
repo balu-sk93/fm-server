@@ -17,6 +17,7 @@ public class CacheMap <K, V> extends ConcurrentHashMap<K, V> {
     
     @Value("${timeout}")
     private long expiryInMillis;
+    
     private GameService gameService;
 
     public CacheMap() {

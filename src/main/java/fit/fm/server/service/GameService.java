@@ -3,6 +3,7 @@ package fit.fm.server.service;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.concurrent.TimeUnit;
 
 import javax.websocket.Session;
 
@@ -32,7 +33,8 @@ public class GameService {
 			else
 				gameSession.setKey(instruction);
 			SessionService.addSession(session.getId(), gameSession);
-			session.getBasicRemote().sendText("Guess the instruction within "+expiryInMillis+" seconds. Score : "+gameSession.getScore());
+			session.getBasicRemote().sendText("Guess the instruction within "+
+					TimeUnit.MILLISECONDS.toSeconds(expiryInMillis)+" seconds. Score : "+gameSession.getScore());
 			LOG.info("Waiting for the client response");
 		} catch (IOException e) {
 			e.printStackTrace();
