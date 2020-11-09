@@ -9,7 +9,6 @@ import javax.websocket.Session;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Value;
 
 import fit.fm.server.core.SessionService;
 import fit.fm.server.dto.GameSession;
@@ -18,8 +17,6 @@ public class GameService {
 
 	private static final Logger LOG = LoggerFactory.getLogger(GameService.class);
 	
-	@Value("${timeout}")
-    private long expiryInMillis;
 
 	public GameSession createRound(Session session) {
 		LOG.info("Creating new instuction");
@@ -34,7 +31,7 @@ public class GameService {
 				gameSession.setKey(instruction);
 			SessionService.addSession(session.getId(), gameSession);
 			session.getBasicRemote().sendText("Guess the instruction within "+
-					TimeUnit.MILLISECONDS.toSeconds(expiryInMillis)+" seconds. Score : "+gameSession.getScore());
+					TimeUnit.MILLISECONDS.toSeconds(SessionService.expiryInMillis)+" seconds. Score : "+gameSession.getScore());
 			LOG.info("Waiting for the client response");
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -73,7 +70,7 @@ public class GameService {
 		return gameOver;
 	}
 
-	protected GameSession validate(Session session, String message) {
+	protected void validate(Session session, String message) {
 		GameSession gameSession = SessionService.getSession(session.getId());
 		int score = gameSession.getScore();
 		if (message.equalsIgnoreCase(gameSession.getKey())) {
@@ -89,7 +86,6 @@ public class GameService {
 		if (!checkGameOver(gameSession)) {
 			createRound(session);
 		}
-		return gameSession;
 	}
 
 	private String readInput() {

@@ -5,10 +5,12 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 
 import fit.fm.server.dto.GameSession;
 import fit.fm.server.service.GameService;
 
+@Component
 public class CacheMap <K, V> extends ConcurrentHashMap<K, V> {
 
     private static final long serialVersionUID = 1L;
