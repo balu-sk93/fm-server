@@ -1,5 +1,0 @@
-{"properties": [{
-  "name": "timeout",
-  "type": "java.lang.String",
-  "description": "Instruction timeout"
-}]}
