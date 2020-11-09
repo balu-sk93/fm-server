@@ -76,9 +76,11 @@ public class GameService {
 		if (message.equalsIgnoreCase(gameSession.getKey())) {
 			score = score + 1;
 			LOG.info("Correct Answer ! Score " + score);
+			sendMessage(gameSession.getSession(), "Correct Answer ! . Score : "+score, false);
 		} else {
 			score = score - 1;
 			LOG.info("Incorrect Answer ! Score " + score);
+			sendMessage(gameSession.getSession(), "Incorrect Answer ! . Score : "+score, false);
 		}
 		LOG.info("Prev Score {}, Score {}", gameSession.getScore(), score);
 		gameSession.setScore(score);
